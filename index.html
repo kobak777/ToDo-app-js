@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do app</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js" defer type="module"></script>
+    <script src="js/utils.js" defer type="module"></script>
+</head>
+<body>
+    <header class = "header">
+        <h1 class="app-name">Список задач</h1>
+        <button class = "settings-btn" data-settings-btn>⚙</button>
+    </header>
+    <main>
+        <section class="add-input-container">
+            <input type="text" class = "add-todo-input" placeholder="Введите задачу" data-add-todo-input>
+            <button class="add-todo-btn" data-add-todo-btn>Добавить задачу</button>
+            <button class="delete-completed-btn" data-delete-completed-btn>Очистить завершенные</button>
+        </section>
+        <section class="search-input-container">
+            <input type="text" placeholder="Поиск по задачам" class="search-input" data-search-todo-input>
+        </section>
+        <section class="todo-list-container" data-todo-container></section>
+    </main>
+    <template data-todo-template>
+        <div class="todo">
+            <input type="checkbox" class="todo-checkbox" data-todo-checkbox>
+            <div class="todo-info">
+                <p class="todo-text" data-todo-text>go to jym</p>
+                <span class="todo-creation-date" data-todo-date>03-10-24</span>
+            </div>
+            <button class="remove-todo-btn" data-remove-todo-btn>X</button>
+        </div>
+    </template>
+</body>
+</html>
