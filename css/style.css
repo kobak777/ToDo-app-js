@@ -1,11 +1,38 @@
- * {
+:root{
+    --background-color: #eecdf7;
+    --text-color: #000000;
+    --todo-card-color: #d5cece;
+    --header-color:rgb(232, 223, 223);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #222222;
+    --text-color: #ffffff;
+  }
+}
+body.dark-theme {
+  --background-color: #222222;
+  --text-color: #ffffff;
+  --todo-card-color: #4a1c1c;
+  --header-color:rgb(232, 223, 223);
+}
+body.light-theme {
+  --background-color: #eecdf7;
+  --text-color: #000000;
+   --todo-card-color: #d5cece;
+   --header-color:rgb(232, 223, 223);
+}
+
+* {
     box-sizing: border-box;
+ }
+ body{
+    background-color: var(--background-color);
+    color: var(--text-color);
  }
  p, body {
     margin: 0;
- }
- body {
-    background-color: #eecdf7;
  }
 
 button{
@@ -18,7 +45,7 @@ input{
     width: 100%;
     height: 130px;
     background: url("https://pic.rutubelist.ru/userappearance/84/46/844638228fedb06f465a988ec4480b3b.jpeg") center/cover no-repeat;
-    color: #fff;
+    color: var(--header-color);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     justify-content: center;
@@ -27,6 +54,7 @@ input{
     h1 {
         text-shadow: 2px 2px 13px #000;
         user-select: none;
+        padding: 3em;
     }  
  }
  .add-input-container{
@@ -81,7 +109,7 @@ input{
         justify-content: flex-start;
         align-items: center;
         gap: 10px;
-        background-color: #e0e4bd;
+        background-color: var(--todo-card-color);
         box-shadow: 0 0 15px 3px #00000055;
     }
     .todo-checkbox {
@@ -123,3 +151,29 @@ input{
         text-decoration: line-through;
     }
 }
+
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 300px;
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.settings-label,
+.settings-select,
+.settings-input,
+.recover-background{
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.save-settings-btn {
+  margin-top: auto;
+}
+

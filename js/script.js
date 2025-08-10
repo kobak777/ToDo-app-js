@@ -9,9 +9,15 @@ const addTodoBtn = document.querySelector("[data-add-todo-btn]");
 const todosContainer = document.querySelector("[data-todo-container]");
 const todoTemplate = document.querySelector("[data-todo-template]");
 const searchTodo = document.querySelector("[data-search-todo-input]");
-const deleteCompletedBtn = document.querySelector(
-  "[data-delete-completed-btn]"
-);
+const deleteCompletedBtn = document.querySelector("[data-delete-completed-btn]");
+
+const settingsWindow = document.querySelector("[data-settings-dialog]");
+const settingsBtn = document.querySelector("[data-settings-btn]");
+
+const themeSelect = document.querySelector("[data-theme-toggle]");
+const saveSettingsBtn = document.querySelector("[data-save-settings-btn]");
+
+const sortToogle = document.querySelector("[data-sort-toggle]");
 
 let todoList = getTodosFromLocalStorage();
 let filteredTodosList = [];
@@ -22,7 +28,10 @@ const renderTodos = () => {
     todosContainer.innerHTML = "<h3>Список задач пуст</h3>";
     return;
   }
-  todoList.forEach((todo) => {
+  const sorting = localStorage.getItem("sorting") || "by-alpha"; 
+  const sortedList = sortTodos(todoList, sorting);
+
+  sortedList.forEach((todo) => {
     const todoElement = createTodoLayout(todo);
     todosContainer.append(todoElement);
   });
@@ -41,7 +50,9 @@ const renderFilteredTodo = () => {
     todosContainer.innerHTML = "<h3>Задачи не найдены</h3>";
     return;
   }
-  filteredTodosList.forEach((todo) => {
+  const sorting = localStorage.getItem("sorting") || "by-alpha";
+  const sortedList = sortTodos(filteredTodosList, sorting);
+  sortedList.forEach((todo) => {
     const todoElement = createTodoLayout(todo);
     todosContainer.append(todoElement);
   });
@@ -56,15 +67,11 @@ const createTodoLayout = (todo) => {
   todoText.textContent = todo.text;
 
   const todoCreatedDate = todoElement.querySelector("[data-todo-date]");
-  todoCreatedDate.textContent = todo.createdAt;
+  todoCreatedDate.textContent = getDateRepresentation(new Date(todo.createdAt));
 
   const removeTodoBtn = todoElement.querySelector("[data-remove-todo-btn]");
   removeTodoBtn.addEventListener("click", () => {
-    todoList = todoList.filter((t) => {
-      if (t.id !== todo.id) {
-        return t;
-      }
-    });
+    todoList = todoList.filter((t) => t.id !== todo.id);
     saveTodosIntoLocalStorage(todoList);
     if (searchTodo.value.trim()) {
       filterAndRenderFilteredTodos(searchTodo.value.trim());
@@ -93,10 +100,10 @@ const createTodoLayout = (todo) => {
 addTodoBtn.addEventListener("click", () => {
   if (addTodoInput.value.trim()) {
     const newTodo = {
-      id: Date.now(), //поменять
+      id: Math.floor(Math.random() * 1000000),
       text: addTodoInput.value.trim(),
       completed: false,
-      createdAt: getDateRepresentation(new Date()),
+      createdAt: new Date().toISOString(), 
     };
     todoList.push(newTodo);
     addTodoInput.value = "";
@@ -118,15 +125,10 @@ addTodoInput.addEventListener("input", (e) => {
   }
 });
 
-
 deleteCompletedBtn.addEventListener("click", () => {
   const attention = confirm("Вы уверены?");
   if (attention) {
-    todoList = todoList.filter((t) => {
-      if (t.completed !== true) {
-        return t;
-      }
-    });
+    todoList = todoList.filter((t) => !t.completed);
     saveTodosIntoLocalStorage(todoList);
     if (searchTodo.value.trim()) {
       filterAndRenderFilteredTodos(searchTodo.value.trim());
@@ -136,5 +138,45 @@ deleteCompletedBtn.addEventListener("click", () => {
   }
 });
 
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme) {
+  applyTheme(savedTheme);
+  themeSelect.value = savedTheme;
+} else {
+  themeSelect.value = "auto";
+}
+
+saveSettingsBtn.addEventListener("click", function () {
+  const selectedTheme = themeSelect.value;
+  const selectedSorting = sortToogle.value;
+  applyTheme(selectedTheme);
+  localStorage.setItem("theme", selectedTheme);
+  localStorage.setItem("sorting", selectedSorting);
+  renderTodos(); 
+});
+
+function applyTheme(theme) {
+  document.body.classList.remove("light-theme", "dark-theme");
+  if (theme === "light") {
+    document.body.classList.add("light-theme");
+  } else if (theme === "dark") {
+    document.body.classList.add("dark-theme");
+  }
+}
+
+function sortTodos(list, sorting) {
+  if (sorting === "by-alpha") {
+    return [...list].sort((a, b) => a.text.localeCompare(b.text));
+  } else if (sorting === "by-date") {
+    return [...list].sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    );
+  }
+  return list;
+}
+
+settingsBtn.addEventListener("click", () => {
+  settingsWindow.showModal();
+});
 
 renderTodos();

@@ -11,7 +11,7 @@
 <body>
     <header class = "header">
         <h1 class="app-name">Список задач</h1>
-        <button class = "settings-btn" data-settings-btn>⚙</button>
+        <button class = "settings-btn" data-settings-btn>Настройки ⚙</button>
     </header>
     <main>
         <section class="add-input-container">
@@ -34,5 +34,35 @@
             <button class="remove-todo-btn" data-remove-todo-btn>X</button>
         </div>
     </template>
+    <dialog class="settings-dialog" data-settings-dialog>
+        <div class="dialog-content" data-dialog-content>
+            <form method="dialog" class="settings-form">
+                <div class="dialog-header">
+                    <h2 class="settings-title">Настройки</h2>
+                    <button type="submit" class="close-btn">✖</button>
+                </div>
+
+                <label for="theme-toggle" class="settings-label">Варианты темы</label>
+                <select id="theme-toggle" data-theme-toggle class="theme-toggle">
+                    <option value="light">Светлая</option>
+                    <option value="dark">Темная</option>
+                    <option value="auto">Авто (системная)</option>
+                </select>
+
+                <label for="sort-toggle" class="settings-label">Сортировка задач</label>
+                <select id="sort-toggle" data-sort-toggle class="settings-select">
+                    <option value="by-alpha">По алфавиту</option>
+                    <option value="by-date">По дате добавления</option>
+                </select>
+
+                <label class="settings-label">Загрузить шапку сайта</label>
+                <input type="file" id="load-back" class="load-back settings-input" data-load-back>
+
+                <button class="recover-background" type="button" data-recover-background>Восстановить шапку по умолчанию</button>
+                <button class="save-settings-btn settings-btn" data-save-settings-btn>Сохранить</button>
+            </form>
+        </div>
+    </dialog>
+
 </body>
 </html>
