@@ -1,8 +1,15 @@
-:root{
-    --background-color: #eecdf7;
-    --text-color: #000000;
-    --todo-card-color: #d5cece;
-    --header-color:rgb(232, 223, 223);
+@font-face {
+  font-family: 'SouthGhetto';
+  src: url('/fonts/ofont.ru_SouthGhetto.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --background-color: #ffffff;
+  --text-color: #000000;
+  --todo-card-color: #d5cece;
+  --header-color: rgb(232, 223, 223);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -11,169 +18,259 @@
     --text-color: #ffffff;
   }
 }
+
 body.dark-theme {
   --background-color: #222222;
   --text-color: #ffffff;
   --todo-card-color: #4a1c1c;
-  --header-color:rgb(232, 223, 223);
+  --header-color: rgb(232, 223, 223);
 }
+
 body.light-theme {
-  --background-color: #eecdf7;
+  --background-color: #c5c4d2fe;
   --text-color: #000000;
-   --todo-card-color: #d5cece;
-   --header-color:rgb(232, 223, 223);
+  --todo-card-color: #d5cece;
+  --header-color: rgb(255, 255, 255);
 }
 
 * {
-    box-sizing: border-box;
- }
- body{
-    background-color: var(--background-color);
-    color: var(--text-color);
- }
- p, body {
-    margin: 0;
- }
-
-button{
-    border-radius: 15px;
+  box-sizing: border-box;
 }
-input{
-    border-radius: 5px;
-}
- .header{
-    width: 100%;
-    height: 130px;
-    background: url("https://pic.rutubelist.ru/userappearance/84/46/844638228fedb06f465a988ec4480b3b.jpeg") center/cover no-repeat;
-    color: var(--header-color);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 32px;
-    h1 {
-        text-shadow: 2px 2px 13px #000;
-        user-select: none;
-        padding: 3em;
-    }  
- }
- .add-input-container{
-    width: 100%;
-    max-width: 600px;
-    height: 50px;
-    margin: 30px auto;
-    padding: 0 10px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: stretch;
-    gap: 10px;
-    .add-todo-btn,
-    .delete-completed-btn{
-      font-size: 20px;
-      flex-grow: 1;
-      user-select: none;
-    }
- }
- .add-todo-input,
- .search-input {
-   border: none;
-   font-size: 24px;
-   flex-grow: 3;
- }
 
-  .search-input-container {
-    width: 100%;
-    max-width: 600px;
-    height: 50px;
-    margin: 0 auto 30px;
-    padding: 0 10px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: stretch;
-    gap: 10px;
- }
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: 'SouthGhetto', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+p, body {
+  margin: 0;
+}
+
+button {
+  border-radius: 15px;
+  font-family: 'SouthGhetto', sans-serif;
+  padding: 5px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+input {
+  border-radius: 5px;
+  font-family: 'SouthGhetto', sans-serif;
+}
+
+input[type="text"],
+input[type="file"],
+select {
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  padding: 5px 10px;
+  outline: none;
+  font-family: 'SouthGhetto', sans-serif;
+}
+
+input[type="text"]:focus,
+input[type="file"]:focus,
+select:focus {
+  border-color: #041f3c;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.header {
+  width: 100%;
+  height: 130px;
+  background: url("https://sun9-61.userapi.com/c638818/v638818642/1e18f/hTp3h0GEHkM.jpg") center/cover no-repeat;
+  color: var(--header-color);
+  font-family: 'SouthGhetto', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+}
+
+.header h1 {
+  text-shadow: 2px 2px 13px #000;
+  user-select: none;
+  padding: 3em;
+}
+
+.add-input-container {
+  width: 100%;
+  max-width: 600px;
+  height: 50px;
+  margin: 30px auto;
+  padding: 0 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 10px;
+}
+
+.add-input-container .add-todo-btn,
+.add-input-container .delete-completed-btn {
+  font-size: 15px;
+  flex-grow: 1;
+  user-select: none;
+}
+
+.add-todo-input,
+.search-input {
+  border: none;
+  font-size: 24px;
+  flex-grow: 3;
+  font-family: 'SouthGhetto', sans-serif;
+}
+
+.search-input-container {
+  width: 100%;
+  max-width: 600px;
+  height: 50px;
+  margin: 0 auto 30px;
+  padding: 0 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 10px;
+}
 
 .todo-list-container {
-   width: 100%;
-   max-width: 580px;
-   margin: 0 auto 30px;
-   display: flex;
-   flex-direction: column;
-   justify-content: flex-start;
-   align-items: stretch;
-   gap: 15px;
-   .todo {
-        height: 60px;
-        padding: 0 10px;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 10px;
-        background-color: var(--todo-card-color);
-        box-shadow: 0 0 15px 3px #00000055;
-    }
-    .todo-checkbox {
-        accent-color: #3db86a;
-        width: 25px;
-        height: 25px;
-    }
-    .todo-info {
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
-        margin: 0;
-        .todo-text {
-            margin: 0 0 3px 0;
-        }
-        .todo-creation-date {
-            font-size: 12px;
-            font-style: italic;
-        }
-    }
-    .remove-todo-btn {
-        background-color: #b5a2a2;
-        border: none;
-        color: #fff;
-        padding: 5px 10px;
-        background-color: #b83d3d;
-        cursor: pointer;
-        &:disabled {
-            background-color: #b79999;
-            cursor: not-allowed;
-        }
-    }
-    .todo:has(.todo-checkbox:checked) {
-        background-color: #6acb8e;
-    }
-    .todo-checkbox:checked ~ .todo-info {
-        text-decoration: line-through;
-    }
+  width: 100%;
+  max-width: 580px;
+  margin: 0 auto 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 15px;
+}
+
+.todo-list-container .todo {
+  height: 60px;
+  padding: 0 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--todo-card-color);
+  box-shadow: 0 0 15px 3px #00000055;
+  font-family: 'SouthGhetto', sans-serif;
+}
+
+.todo-checkbox {
+  accent-color: #3db86a;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+
+.todo-info {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 0;
+}
+
+.todo-text {
+  margin: 0 0 3px 0;
+}
+
+.todo-creation-date {
+  font-size: 12px;
+  font-style: italic;
+}
+
+.remove-todo-btn {
+  background-color: #b83d3d;
+  border: none;
+  color: #fff;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 15px;
+  font-family: 'SouthGhetto', sans-serif;
+}
+
+.remove-todo-btn:disabled {
+  background-color: #b79999;
+  cursor: not-allowed;
+}
+
+.todo:has(.todo-checkbox:checked) {
+  background-color: #6acb8e;
+}
+
+.todo-checkbox:checked ~ .todo-info {
+  text-decoration: line-through;
 }
 
 .settings-form {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border: 1px solid #888;
+  padding: 20px;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   gap: 16px;
   width: 300px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  font-family: 'SouthGhetto', sans-serif;
+}
+
+.settings-label {
+  color: var(--text-color);
+  font-weight: bold;
+}
+
+.settings-select,
+.settings-input {
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 5px;
+  font-family: 'SouthGhetto', sans-serif;
+}
+
+.settings-select:focus,
+.settings-input:focus {
+  border-color: #555;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.save-settings-btn {
+  background-color: var(--todo-card-color);
+  color: var(--text-color);
+  border: none;
+  padding: 10px;
+  border-radius: 15px;
+  cursor: pointer;
+  font-family: 'SouthGhetto', sans-serif;
+  transition: background-color 0.3s ease;
+}
+
+.save-settings-btn:hover {
+  background-color: #888;
+  color: #fff;
 }
 
 .dialog-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0 10px;
 }
 
-.settings-label,
-.settings-select,
-.settings-input,
-.recover-background{
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.save-settings-btn {
-  margin-top: auto;
+.dialog-header button.close-btn {
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  color: var(--text-color);
 }
 
