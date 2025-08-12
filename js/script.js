@@ -128,7 +128,6 @@ addTodoBtn.addEventListener("click", () => {
     saveTodosIntoLocalStorage(todoList);
     renderTodos();
   }
-  
 });
 
 searchTodo.addEventListener("input", (e) => {
@@ -141,7 +140,6 @@ addTodoInput.addEventListener("input", () => {
     searchTodo.value = "";
     renderTodos();
   }
-  
 });
 
 deleteCompletedBtn.addEventListener("click", () => {
@@ -185,6 +183,16 @@ function sortTodos(list, sorting) {
   }
   return list;
 }
+settingsBtn.addEventListener("keydown", (e) => {
+  if (e.key === " " || e.key === "Enter") {
+    e.preventDefault();
+  }
+});
+settingsWindow.addEventListener("keydown", (e) => {
+  if (e.key === " " || e.key === "Enter") {
+    e.preventDefault();
+  }
+});
 
 settingsBtn.addEventListener("click", () => {
   settingsWindow.showModal();

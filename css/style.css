@@ -110,7 +110,9 @@ button:active {
   transform: scale(0.97);
   transition: transform 0.1s ease;
 }
-
+button:focus {
+  outline: none;
+}
 input {
   border-radius: 5px;
   font-family: 'SouthGhetto', sans-serif;
