@@ -6,6 +6,8 @@
 }
 
 :root {
+  --background-gradient: linear-gradient(135deg, #ffffff 0%, #f1d4c0 100%);
+  --dot-color: rgba(221, 85, 51, 0.6);
   --background-color: #ffffff;
   --text-color: #000000;
   --todo-card-color: #dfdfdf;
@@ -14,6 +16,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
+    --background-gradient: linear-gradient(135deg, #222222, #4a1c1c);
     --background-color: #222222;
     --text-color: #ffffff;
     --todo-card-color: #4a1c1c;
@@ -22,10 +25,12 @@
 }
 
 body.light-theme {
+  --background-gradient: linear-gradient(135deg, #ffffff 0%, #f1d4c0 100%);
   --background-color: #ffffff;
   --text-color: #000000;
   --todo-card-color: #dfdfdf;
   --header-color: rgb(255, 255, 255);
+  --dot-color: rgba(221, 85, 51, 0.6); 
 }
 
 body.light-theme .todo.completed {
@@ -38,10 +43,12 @@ body.light-theme .todo.completed .todo-info {
 }
 
 body.dark-theme {
+  --background-gradient: linear-gradient(135deg, #222222, #4a1c1c);
   --background-color: #222222;
   --text-color: #ffffff;
   --todo-card-color: #4a1c1c;
   --header-color: rgb(232, 223, 223);
+  --dot-color: rgba(255, 255, 255, 0.7);
 }
 
 body.dark-theme .todo:has(.todo-checkbox:checked) {
@@ -62,15 +69,21 @@ html {
   margin: 0;
   padding: 0;
   width: 100%;
+  height: 100%;
   overflow-x: hidden;
 }
 
 body {
-  background-color: var(--background-color);
+  position: relative;
+  background: var(--background-gradient);
   color: var(--text-color);
   font-family: 'SouthGhetto', sans-serif;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 p,
@@ -98,7 +111,6 @@ button:active {
   transition: transform 0.1s ease;
 }
 
-
 input {
   border-radius: 5px;
   font-family: 'SouthGhetto', sans-serif;
@@ -108,11 +120,15 @@ input[type='file'],
 select {
   border: 2px solid #ccc;
   border-radius: 5px;
-   
   outline: none;
   font-family: 'SouthGhetto', sans-serif;
   font-size: clamp(14px, 2.5vw, 16px);
 }
+
+select{
+  padding: 5px;
+}
+
 input[type='text']:focus,
 input[type='file']:focus,
 select:focus {
@@ -123,7 +139,7 @@ select:focus {
 /* Шапка сайта */
 .header {
   width: 100vw;
-  height: 130px;
+  min-height: 150px;
   background: url('https://sun9-61.userapi.com/c638818/v638818642/1e18f/hTp3h0GEHkM.jpg')
     center/cover no-repeat;
   color: var(--header-color);
@@ -134,6 +150,8 @@ select:focus {
   padding: 0 20px;
   font-size: clamp(18px, 3vw, 25px);
   box-sizing: border-box;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-bottom: none; 
 }
 
 .header-left h1 {
@@ -173,7 +191,7 @@ select:focus {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  align-items: stretch;  /
+  align-items: stretch;  
   justify-content: center;
   box-sizing: border-box;
 }
@@ -216,13 +234,7 @@ select:focus {
   transform: scale(0.95);
   transition: transform 0.1s ease;
 }
-@media (max-width: 350px) {
-  .add-input-container .add-todo-btn,
-  .add-input-container .delete-completed-btn {
-    flex: 1 1 100%;
-     
-  }
-}
+
 
 /* Контейнер для поля поиска */
 .search-input-container {
@@ -364,10 +376,11 @@ select:focus {
 .settings-select,
 .settings-input {
   border: 1px solid #ccc;
-  padding: 8px;
   border-radius: 5px;
   font-family: 'SouthGhetto', sans-serif;
-  font-size: clamp(14px, 2.5vw, 18px);
+}
+.settings-input{
+  padding: 8px;
 }
 .settings-select:focus,
 .settings-input:focus {
@@ -386,7 +399,6 @@ select:focus {
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.15s ease;
 }
 
- 
 .dialog-header {
   display: flex;
   justify-content: space-between;
@@ -406,4 +418,35 @@ select:focus {
   padding: 0;
   border-radius: 10px;
   background-color: #000;
+}
+
+.background-dots {
+  position: fixed;
+  top: 150px; 
+  left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
+
+.background-dots .dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--dot-color);
+  opacity: 0.3; 
+  will-change: transform, opacity;
+  filter: drop-shadow(0 0 1px var(--dot-color));
+  transition: background-color 0.5s ease;
+}
+@media (max-width: 350px) {
+  .add-input-container .add-todo-btn,
+  .add-input-container .delete-completed-btn {
+    flex: 1 1 100%;
+     
+  }
+  .header{
+    min-height: 120px;
+  }
 }

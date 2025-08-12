@@ -24,7 +24,7 @@ const recoverBackgroundBtn = document.querySelector(
   "[data-recover-background]"
 );
 const defaultLightHeader =
-  "https://sun9-61.userapi.com/c638818/v638818642/1e18f/hTp3h0GEHkM.jpg";
+  "https://avatars.mds.yandex.net/i?id=70c968a27e848778596c70749b00c2f3_l-5294162-images-thumbs&n=13";
 const defaultDarkHeader =
   "https://avatars.mds.yandex.net/i?id=f64ff3afe5e686d8b304c180d3f2d127fd05478d-5235735-images-thumbs&n=13";
 
@@ -128,6 +128,7 @@ addTodoBtn.addEventListener("click", () => {
     saveTodosIntoLocalStorage(todoList);
     renderTodos();
   }
+  
 });
 
 searchTodo.addEventListener("input", (e) => {
@@ -140,6 +141,7 @@ addTodoInput.addEventListener("input", () => {
     searchTodo.value = "";
     renderTodos();
   }
+  
 });
 
 deleteCompletedBtn.addEventListener("click", () => {
