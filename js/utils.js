@@ -9,9 +9,16 @@ export const getTodosFromLocalStorage = () => {
 };
 
 export const getDateRepresentation = (date) => {
-  return Intl.DateTimeFormat("ru-RU",{
+  return Intl.DateTimeFormat("ru-RU", {
     day: "numeric",
     month: "numeric",
     year: "numeric",
+  }).format(date);
+};
+
+export const getTimeRepresentation = (date) => {
+  return Intl.DateTimeFormat("ru-RU", {
+    hour: "2-digit",
+    minute: "2-digit",
   }).format(date);
 };

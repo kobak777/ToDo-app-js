@@ -2,8 +2,9 @@ import {
   saveTodosIntoLocalStorage,
   getTodosFromLocalStorage,
   getDateRepresentation,
+  getTimeRepresentation,
 } from "./utils.js";
-const MAX_TODO_LENGTH = 30;
+const MAX_TODO_LENGTH = 40;
 const addTodoInput = document.querySelector("[data-add-todo-input]");
 const addTodoBtn = document.querySelector("[data-add-todo-btn]");
 const todosContainer = document.querySelector("[data-todo-container]");
@@ -77,7 +78,11 @@ const createTodoLayout = (todo) => {
   const todoText = todoElement.querySelector("[data-todo-text]");
   todoText.textContent = todo.text;
   const todoCreatedDate = todoElement.querySelector("[data-todo-date]");
-  todoCreatedDate.textContent = getDateRepresentation(new Date(todo.createdAt));
+  const createdAtDate = new Date(todo.createdAt);
+  todoCreatedDate.textContent = `${getDateRepresentation(
+    createdAtDate
+  )} ${getTimeRepresentation(createdAtDate)}`;
+
   const removeTodoBtn = todoElement.querySelector("[data-remove-todo-btn]");
   removeTodoBtn.addEventListener("click", () => {
     todoList = todoList.filter((t) => t.id !== todo.id);
@@ -88,6 +93,7 @@ const createTodoLayout = (todo) => {
       renderTodos();
     }
   });
+
   checkBox.addEventListener("change", (e) => {
     todoList = todoList.map((t) => {
       if (t.id === todo.id) {
@@ -171,7 +177,8 @@ function sortTodos(list, sorting) {
     return [...list].sort((a, b) => a.text.localeCompare(b.text));
   } else if (sorting === "by-date") {
     return [...list].sort(
-      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     );
   }
   return list;
@@ -237,7 +244,7 @@ saveSettingsBtn.addEventListener("click", () => {
       selectedTheme === "auto" ? getSystemTheme() : selectedTheme;
     resetHeader(themeToApply);
   }
-
+  loadBackInput.value = "";
   renderTodos();
 });
 

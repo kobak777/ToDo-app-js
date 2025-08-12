@@ -8,7 +8,7 @@
 :root {
   --background-color: #ffffff;
   --text-color: #000000;
-  --todo-card-color: #d5cece;
+  --todo-card-color: #dfdfdf;
   --header-color: rgb(232, 223, 223);
 }
 
@@ -16,7 +16,25 @@
   :root {
     --background-color: #222222;
     --text-color: #ffffff;
+    --todo-card-color: #4a1c1c;
+    --header-color: rgb(232, 223, 223);
   }
+}
+
+body.light-theme {
+  --background-color: #ffffff;
+  --text-color: #000000;
+  --todo-card-color: #dfdfdf;
+  --header-color: rgb(255, 255, 255);
+}
+
+body.light-theme .todo.completed {
+  background-color: #b5b2b2;
+  opacity: 1;
+}
+body.light-theme .todo.completed .todo-info {
+  text-decoration: line-through;
+  color: #433333;
 }
 
 body.dark-theme {
@@ -26,15 +44,25 @@ body.dark-theme {
   --header-color: rgb(232, 223, 223);
 }
 
-body.light-theme {
-  --background-color: #c5c4d2fe;
-  --text-color: #000000;
-  --todo-card-color: #d5cece;
-  --header-color: rgb(255, 255, 255);
+body.dark-theme .todo:has(.todo-checkbox:checked) {
+  background-color: #3a3a3a;
+  opacity: 1;
+}
+
+body.dark-theme .todo-checkbox:checked ~ .todo-info {
+  text-decoration: line-through;
+  color: #bbbbbb;
 }
 
 * {
   box-sizing: border-box;
+}
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -45,168 +73,275 @@ body {
   padding: 0;
 }
 
-p, body {
+p,
+body {
   margin: 0;
 }
 
+/* Базовые стили для кнопок и инпутов */
 button {
+  border: 1px solid black;
   border-radius: 15px;
   font-family: 'SouthGhetto', sans-serif;
   padding: 5px;
   cursor: pointer;
-  font-size: 15px;
+  font-size: clamp(12px, 2vw, 16px);
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.15s ease;
 }
+button:hover {
+  background-color: #888;
+  color: #fff;
+  transform: scale(1.02);
+}
+button:active {
+  transform: scale(0.97);
+  transition: transform 0.1s ease;
+}
+
 
 input {
   border-radius: 5px;
   font-family: 'SouthGhetto', sans-serif;
 }
-
-input[type="text"],
-input[type="file"],
+input[type='text'],
+input[type='file'],
 select {
   border: 2px solid #ccc;
   border-radius: 5px;
-  padding: 5px 10px;
+   
   outline: none;
   font-family: 'SouthGhetto', sans-serif;
+  font-size: clamp(14px, 2.5vw, 16px);
 }
-
-input[type="text"]:focus,
-input[type="file"]:focus,
+input[type='text']:focus,
+input[type='file']:focus,
 select:focus {
   border-color: #041f3c;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
+/* Шапка сайта */
 .header {
-  width: 100%;
+  width: 100vw;
   height: 130px;
-  background: url("https://sun9-61.userapi.com/c638818/v638818642/1e18f/hTp3h0GEHkM.jpg") center/cover no-repeat;
+  background: url('https://sun9-61.userapi.com/c638818/v638818642/1e18f/hTp3h0GEHkM.jpg')
+    center/cover no-repeat;
   color: var(--header-color);
   font-family: 'SouthGhetto', sans-serif;
   display: flex;
-  justify-content: center;
   align-items: center;
-  font-size: 25px;
+  justify-content: space-between;
+  padding: 0 20px;
+  font-size: clamp(18px, 3vw, 25px);
+  box-sizing: border-box;
 }
 
-.header h1 {
+.header-left h1 {
+  margin: 0;
   text-shadow: 2px 2px 13px #000;
   user-select: none;
-  padding: 3em;
+  -webkit-text-stroke: 1px black;
+  font-size: clamp(20px, 4vw, 32px);
 }
 
+.header-right button {
+  border-radius: 15px;
+  font-family: 'SouthGhetto', sans-serif;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: clamp(12px, 2vw, 16px);
+  background-color: var(--todo-card-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.15s ease;
+}
+.header-right button:hover {
+  background-color: #888;
+  color: #fff;
+  transform: scale(1.05);
+}
+.header-right button:active {
+  transform: scale(0.95);
+  transition: transform 0.1s ease;
+}
+
+/* Контейнер для добавления задачи */
 .add-input-container {
-  width: 100%;
+  width: 90%;
   max-width: 600px;
-  height: 50px;
-  margin: 30px auto;
+  margin: 30px auto 10px;
   padding: 0 10px;
   display: flex;
-  justify-content: flex-start;
-  align-items: stretch;
-  gap: 10px;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: stretch;  /
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.add-input-container .add-todo-input {
+  flex: 1 1 100%;
+  padding: 8px 10px;
+  border-radius: 5px;
+  border: 2px solid #ccc;
+  box-sizing: border-box;
+  min-width: 0;
 }
 
 .add-input-container .add-todo-btn,
 .add-input-container .delete-completed-btn {
-  font-size: 15px;
-  flex-grow: 1;
-  user-select: none;
+  flex: 1 1 45%;  
+  font-size: clamp(12px, 3vw, 16px);
+  padding: 8px 12px;
+  border-radius: 15px;
+  cursor: pointer;
+  box-sizing: border-box;
+  min-width: 0;
+  white-space: normal;  
+  word-break: break-word;
+  overflow-wrap: break-word;
+  display: flex;             
+  justify-content: center;  
+  align-items: center;      
+  text-align: center;      
 }
 
-.add-todo-input,
-.search-input {
-  border: none;
-  font-size: 24px;
-  flex-grow: 3;
-  font-family: 'SouthGhetto', sans-serif;
+.add-input-container .add-todo-btn:hover,
+.add-input-container .delete-completed-btn:hover {
+  background-color: #888;
+  color: #fff;
+  transform: scale(1.05);
+}
+.add-input-container .add-todo-btn:active,
+.add-input-container .delete-completed-btn:active {
+  transform: scale(0.95);
+  transition: transform 0.1s ease;
+}
+@media (max-width: 350px) {
+  .add-input-container .add-todo-btn,
+  .add-input-container .delete-completed-btn {
+    flex: 1 1 100%;
+     
+  }
 }
 
+/* Контейнер для поля поиска */
 .search-input-container {
-  width: 100%;
+  width: 90%;
   max-width: 600px;
-  height: 50px;
   margin: 0 auto 30px;
   padding: 0 10px;
   display: flex;
-  justify-content: flex-start;
-  align-items: stretch;
-  gap: 10px;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
+/* Стили для инпутов */
+.add-todo-input,
+.search-input {
+  font-size: clamp(16px, 4vw, 24px);
+  padding: 8px 10px;
+  border-radius: 5px;
+  border: 2px solid #ccc;
+  box-sizing: border-box;
+  flex: 1 1 100%;
+  min-width: 0;
+  font-family: 'SouthGhetto', sans-serif;
+}
+
+/* Контейнер списка задач */
 .todo-list-container {
-  width: 100%;
+  width: 90%;
   max-width: 580px;
   margin: 0 auto 30px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: stretch;
   gap: 15px;
 }
 
+/* Отдельный элемент задачи */
 .todo-list-container .todo {
-  height: 60px;
-  padding: 0 10px;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
   gap: 10px;
   background-color: var(--todo-card-color);
   box-shadow: 0 0 15px 3px #00000055;
   font-family: 'SouthGhetto', sans-serif;
+  font-size: clamp(12px, 2.5vw, 16px);
+  padding: 10px;
+  flex-wrap: nowrap;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .todo-checkbox {
-  accent-color: #3db86a;
-  width: 25px;
-  height: 25px;
+  flex-shrink: 0;
+  width: clamp(18px, 4vw, 25px);
+  height: clamp(18px, 4vw, 25px);
   cursor: pointer;
 }
 
 .todo-info {
   flex-grow: 1;
+  flex-shrink: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-start;
-  margin: 0;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .todo-text {
   margin: 0 0 3px 0;
-}
-
-.todo-creation-date {
-  font-size: 12px;
-  font-style: italic;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .remove-todo-btn {
+  flex-shrink: 0;
   background-color: #b83d3d;
   border: none;
   color: #fff;
-  padding: 5px 10px;
+  padding: clamp(5px, 1.5vw, 10px) clamp(8px, 2vw, 16px);
   cursor: pointer;
   border-radius: 15px;
   font-family: 'SouthGhetto', sans-serif;
+  font-size: clamp(10px, 2vw, 16px);
+  white-space: nowrap;
+  max-width: 100px;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease, transform 0.15s ease;
 }
-
+.remove-todo-btn:hover:not(:disabled) {
+  background-color: #a22e2e;
+  transform: scale(1.05);
+}
+.remove-todo-btn:active:not(:disabled) {
+  transform: scale(0.95);
+  transition: transform 0.1s ease;
+}
 .remove-todo-btn:disabled {
   background-color: #b79999;
   cursor: not-allowed;
 }
 
+/* Стили для выполненных задач */
 .todo:has(.todo-checkbox:checked) {
-  background-color: #6acb8e;
+  background-color: transparent;
+  opacity: 0.6;
 }
 
 .todo-checkbox:checked ~ .todo-info {
   text-decoration: line-through;
+  color: #222222;
 }
 
+/* Стили окна настроек */
 .settings-form {
   background-color: var(--background-color);
   color: var(--text-color);
@@ -216,61 +351,59 @@ select:focus {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  width: 300px;
+  width: 70vw;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   font-family: 'SouthGhetto', sans-serif;
+  font-size: clamp(14px, 2.5vw, 18px);
 }
-
 .settings-label {
   color: var(--text-color);
   font-weight: bold;
+  font-size: clamp(14px, 2.5vw, 18px);
 }
-
 .settings-select,
 .settings-input {
   border: 1px solid #ccc;
   padding: 8px;
   border-radius: 5px;
   font-family: 'SouthGhetto', sans-serif;
+  font-size: clamp(14px, 2.5vw, 18px);
 }
-
 .settings-select:focus,
 .settings-input:focus {
   border-color: #555;
   outline: none;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
-
 .save-settings-btn {
   background-color: var(--todo-card-color);
   color: var(--text-color);
-  border: none;
   padding: 10px;
   border-radius: 15px;
   cursor: pointer;
   font-family: 'SouthGhetto', sans-serif;
-  transition: background-color 0.3s ease;
+  font-size: clamp(14px, 2.5vw, 18px);
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.15s ease;
 }
 
-.save-settings-btn:hover {
-  background-color: #888;
-  color: #fff;
-}
-
+ 
 .dialog-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 10px;
 }
-
 .dialog-header button.close-btn {
   background: transparent;
   border: none;
-  font-size: 24px;
+  font-size: clamp(20px, 3vw, 24px);
   cursor: pointer;
   line-height: 1;
   padding: 0;
   color: var(--text-color);
 }
-
+.settings-dialog {
+  padding: 0;
+  border-radius: 10px;
+  background-color: #000;
+}

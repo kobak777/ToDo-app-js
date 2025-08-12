@@ -3,21 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do app</title>
+    <title>Список задач</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/script.js" defer type="module"></script>
     <script src="js/utils.js" defer type="module"></script>
 </head>
 <body>
-    <header class = "header">
-        <h1 class="app-name">Список задач</h1>
-        <button class = "settings-btn" data-settings-btn>Настройки ⚙</button>
-    </header>
+    <div class="header">
+        <div class="header-left">
+            <h1>Список задач</h1>
+        </div>
+        <div class="header-right">
+            <button data-settings-btn>⚙️</button>
+        </div>
+    </div>
     <main>
         <section class="add-input-container">
-            <input type="text" class = "add-todo-input" placeholder="Введите задачу" data-add-todo-input>
             <button class="add-todo-btn" data-add-todo-btn>Добавить задачу</button>
             <button class="delete-completed-btn" data-delete-completed-btn>Очистить завершенные</button>
+            <input type="text" class = "add-todo-input" placeholder="Введите задачу" data-add-todo-input>
+            
         </section>
         <section class="search-input-container">
             <input type="text" placeholder="Поиск по задачам" class="search-input" data-search-todo-input>
@@ -52,7 +57,7 @@
                 <label for="sort-toggle" class="settings-label">Сортировка задач</label>
                 <select id="sort-toggle" data-sort-toggle class="settings-select">
                     <option value="by-alpha">По алфавиту</option>
-                    <option value="by-date">По дате добавления</option>
+                    <option value="by-date">По дате</option>
                 </select>
 
                 <label class="settings-label">Загрузить шапку сайта</label>
